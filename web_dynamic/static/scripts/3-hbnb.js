@@ -43,4 +43,25 @@ $(document).ready(() => {
       $('DIV#api_status').removeClass('available');
     }
   });
+
+  // $.post('http://0.0.0.0:5001/api/v1/places_search/', {}, (data, status) => {
+  //   console.log(data[0])
+  // })
+  $.ajax({
+    type: 'POST',
+    url: 'http://0.0.0.0:5001/api/v1/places_search/',
+    data: '{}',
+    success: (data) => {
+      $(data).each((place) => {
+        const article = '<ARTICLE></ARTICLE>';
+        const title = `<div class="title_box"><h2>${data[place].name}</h2><div class="price_by_night">${data[place].price_by_night}</div></div>`;
+        const information = `<div class="information"><div class="max_guest">${data[place].max_guest} Guests</div><div class="number_rooms">${data[place].number_rooms} Bedrooms</div><div class="number_bathrooms">${data[place].number_bathrooms} Bathrooms</div></div>`;
+        const description = `<div class="description">${data[place].description}</div>`;
+        const html = title + information + description;
+        $('SECTION.places').append($(article).append(html));
+      });
+    },
+    contentType: 'application/json',
+    dataType: 'json'
+  });
 });
