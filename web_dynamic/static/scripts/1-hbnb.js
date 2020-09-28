@@ -19,19 +19,21 @@ $(document).ready(() => {
       if ($(checkboxes[index]).prop('checked') && amenityIds.indexOf($(checkboxes[index]).attr('data-id')) === -1 && addToH4.indexOf($(checkboxes[index]).attr('data-name')) === -1) {
         amenityIds.push($(checkboxes[index]).attr('data-id'));
         addToH4.push($(checkboxes[index]).attr('data-name'));
+        console.log(addToH4);
       } else if ($(checkboxes[index]).prop('checked') === false && amenityIds.indexOf($(checkboxes[index]).attr('data-id')) > -1 && addToH4.indexOf($(checkboxes[index]).attr('data-name')) > -1) {
         amenityIds.splice(index, 1);
-        addToH4.splice(index, 1);
+        addToH4.splice(addToH4.indexOf(addToH4[index]), 1);
+        console.log(addToH4);
       }
-    });
 
-    /* concatinate all preferences in addToH4 as string */
-    let str = '';
-    $(addToH4).each((i) => {
-      str = str + ' ' + addToH4[i] + ',';
-    });
+      /* concatinate all preferences in addToH4 as string */
+      let str = '';
+      $(addToH4).each((i) => {
+        str = str + ' ' + addToH4[i] + ',';
+      });
 
-    /* change the amenity h4 text */
-    preferences.text(str);
+      /* change the amenity h4 text */
+      preferences.text(str);
+    });
   });
 });
